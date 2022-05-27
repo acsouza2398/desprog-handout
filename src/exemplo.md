@@ -80,7 +80,152 @@ Para fins de simplificação, considera-se que a posição dos itens na lista de
 
 ???
 
-Agora que temos a função de chamada, antes de prosseguirmos com o desenvolvimento para a função, vamos primeiro entender o que está acontecendo.
+Com a chamada da função pronta, os próximos passos são: definir a condição inicial, e então usar de recursão para checar sempre qual é o caso de maior valor: **com** ou **sem** o objeto em questão.
+
+Bom...Não nos apressemos. Primeiro, vamos ver se você entendeu a recursão do nosso algoritmo.
+
+??? Questão 3
+
+Desenvolva o caso base da recursão para resolver o problema da mochila.
+
+::: Gabarito
+``` c
+int Mochila(int L, int p[], int val[], int n)
+{
+    // Condição Inicial
+    if (n == 0 || L == 0)
+        return 0;
+
+}
+```
+:::
+
+???
+
+??? Questão 4
+
+Feito a condição inicial, complete a função com a chamada recursiva.
+
+::: Gabarito
+``` c
+int Mochila(int L, int p[], int val[], int n)
+{
+    // Condição Inicial
+    if (n == 0 || L == 0)
+        return 0;
+
+    // Devolve o maior valor dentre dois casos:
+    // (1) incluindo o n-ésimo item na mochila
+    // (2) não incluindo o n-ésimo item na mochila
+    return maior_valor(
+        val[n - 1] + Mochila(L - p[n - 1], p, val, n - 1),
+                                Mochila(L, p, val, n - 1));
+}
+```
+:::
+
+???
+
+Notou algo de errado com essa função?
+
+Ela não leva em conta um dos fatores que foi mencionado no começo da aula: o que acontece se o limite de peso for ultrapassado por um objeto.
+
+??? Questão 5
+
+Refaça a Questão 4, levando em conta o caso em que um objeto ultrapassa o limite de peso.
+
+::: Gabarito
+``` c
+int Mochila(int L, int p[], int val[], int n)
+{
+    // Condição Inicial
+    if (n == 0 || L == 0)
+        return 0;
+
+    // Se o peso do n-ésimo item for maior do que
+    // a capacdade L da mochila, então esse item
+    // não pode ser incluído na solução otimizada
+    if (p[n - 1] > L)
+        return Mochila(L, p, val, n - 1);
+ 
+    // Devolve o maior valor dentre dois casos:
+    // (1) incluindo o n-ésimo item na mochila
+    // (2) não incluindo o n-ésimo item na mochila
+    return maior_valor(
+        val[n - 1] + Mochila(L - p[n - 1], p, val, n - 1),
+                                Mochila(L, p, val, n - 1));
+}
+```
+:::
+
+???
+
+??? Questão 6
+
+Determine a complexidade da função recursiva.
+
+::: Gabarito (Texto pls, Tiago)
+A complexidade temporal e de uso de memória auxiliar do nosso algoritmo é O(n) em ambos os casos, o que significa que se uma empresa tiver como prioridade maior a velocidade ou o quanto de memória é gasta, ele poderia acabar não sendo escolhido. 
+
+Mas por ser um algoritmo estável, se uma empresa quiser dados confiáveis acima de tempo ou uso de memória, o que geralmente é o que ocorre em casos envolvendo objetos de valor muito alto, esse é o melhor algoritmo para esse serviço.
+:::
+
+???
+
+Melhorou, mas há jeitos menos custosos pra resolver esse problema. Como você calculou na questão anterior, a complexidade do algoritmo de recursão simples é alta e, apesar de não gastar muita memória, tem um tempo de execução muito alto devido a repetição desnecessária.
+
+Para resolver isso, é interessante olhar para um outro tipo de algoritmo de mochila: a programação dinâmica. 
+
+Com o uso de programação dinâmica para resolver o problema, a repetição excessiva da recurção pode ser evitada criando um array temporário **temp**.
+
+Lembrando como funciona a programação dinâmica, o algoritmo consulta o array temporário para tomar as decisões de incluir um item ou não e preenche o array até chegar na resposta final do problema. Como o array segura todos os resultados das iterações passadas, não há mais necessidade da recursão, apenas a consulta e comparação com o array.
+
+??? Questão 7
+
+Com essas informações, desenvolva o algoritmo de Programação Dinâmica usado na resolução do problema da mochila. 
+
+::: Gabarito
+``` c
+int Mochila(int L, int p[], int val[], int n)
+{
+    int i, w;
+    int K[n + 1][L + 1];
+ 
+    // Construindo array K[][] de baixo para cima
+    for (i = 0; i <= n; i++)
+    {
+        for (w = 0; w <= L; w++)
+        {
+            if (i == 0 || w == 0)
+                K[i][w] = 0;
+            else if (p[i - 1] <= w)
+                K[i][w] = max(val[i - 1]
+                          + K[i - 1][w - p[i - 1]], K[i - 1][w]);
+            else
+                K[i][w] = K[i - 1][w];
+        }
+    }
+ 
+    return K[n][L];
+}
+```
+:::
+
+???
+
+??? Questão 8
+
+Agora que temos o nosso algoritmo, determine a sua complexidade.
+
+::: Gabarito
+A complexidade temporal e de uso de memória auxiliar do nosso algoritmo é O(n) em ambos os casos, o que significa que se uma empresa tiver como prioridade maior a velocidade ou o quanto de memória é gasta, ele poderia acabar não sendo escolhido. 
+
+Mas por ser um algoritmo estável, se uma empresa quiser dados confiáveis acima de tempo ou uso de memória, o que geralmente é o que ocorre em casos envolvendo objetos de valor muito alto, esse é o melhor algoritmo para esse serviço.
+:::
+
+???
+
+Agora que temos o algoritmo pronto, vamos entender o que está acontecendo.
 
 Como o algoritmo é recursivo, isso implica calcular subproblemas derivados do problema principal e reutilizar esses resultados no futuro para fins de comparação. Isso funciona através do preenchimento de uma matriz limite x itens:
 
@@ -92,14 +237,14 @@ Como o algoritmo é recursivo, isso implica calcular subproblemas derivados do p
 
 As células dessa matriz são preenchidas linhas por coluna com o valor máximo da mochila dado seu limite de peso e itens considerados.
 
-??? Questão 3
+??? Questão 9
 
 Preencha a primeira linha da tabela. Ou seja, considerando apenas o item 1, qual é o valor da mochila para cada limite de peso?
 
 ::: Gabarito
 Para a primeira coluna, como o limite de peso é de 0 kg, o item 1 não pode ser incluido pois nao cabe, portanto o valor máximo da mochila é R$ 0,00.
 
-A partir da segunda coluna, onde o limite de peso é 1 kg, é possível incluir o item 1. Com isso, o valor das colunas restantes é de R$ 10,00.
+A partir da segunda coluna, onde o limite de peso é 1 kg, é possível incluir o item 1. Com isso, o valor das colunas restantes é de R$ 15,00.
 
 |                             | 0 kg     | 1 kg     | 2 kg     | 3 kg     | 
 |-----------------------------|----------|----------|----------|----------|
@@ -112,7 +257,7 @@ A partir da segunda coluna, onde o limite de peso é 1 kg, é possível incluir 
 
 O preenchimento da próxima linha é onde a recursão começa a importar. Até a segunda coluna, o preenchimento é igual a linha de cima, visto que não é possível incluir o item 2 quando o limite de peso é inferior ao seu peso. Na terceira coluna, há uma decisão a ser tomada: incluir o item 1 ou 2.
 
-??? Questão 4
+??? Questão 10
 
 Preencha a segunda linha da tabela até a terceira coluna. Qual deve ser o item a ser incluido na terceira coluna? Por quê?
 
@@ -136,7 +281,7 @@ Nas últimas duas colunas, o valor máximo é a somatória dos valores dos itens
 
 Para a terceira linha da tabela, assim como para o item 2, as primeiras 3 colunas são identicas a linha de cima, pois não é possível incluir o item 3 ainda.
 
-??? Questão 5
+??? Questão 11
 
 Preencha a terceira linha da tabela até a quarta coluna. Qual deve ser o(s) item(ns) a ser(em) incluido(s) na quarta coluna? Por quê?
 
@@ -182,113 +327,23 @@ O valor final da mochila é R$ 45,00 com peso de 4 kg.
 
 ??? -->
 
-Agora que você já deve ter entendido como funciona o problema da mochila, você já deve ter uma ideia de como desenvolvê-lo: definir a condição inicial, e então usar de recursão para checar sempre qual é o caso de maior valor: **com** ou **sem** o objeto em questão, certo?
+Agora que você já entendeu a como o problema funciona, resolva o problema a seguir:
 
-Bom...Não nos apressemos. Primeiro, vamos ver se você entendeu essa versão Naive do nosso algoritmo.
+??? Questão 12
 
-??? Questão 6
+Considere uma mochila com limite de peso de 7 kg com os seguintes itens:
+* Item 1: 1 kg com valor de R$ 9,00
+* Item 2: 2 kg com valor de R$ 12,00
+* Item 3: 3 kg com valor de R$ 15,00
+* Item 4: 5 kg com valor de R$ 20,00
 
-Desenvolva a recursão para resolver o problema da mochila.
+![](Q2.png)
 
-::: Gabarito
-``` c
-int Mochila(int L, int p[], int val[], int n)
-{
-    // Condição Inicial
-    if (n == 0 || L == 0)
-        return 0;
- 
-    // Devolve o maior valor dentre dois casos:
-    // (1) incluindo o n-ésimo item na mochila
-    // (2) não incluindo o n-ésimo item na mochila
-    return maior_valor(
-        val[n - 1] + Mochila(L - p[n - 1], p, val, n - 1),
-                                Mochila(L, p, val, n - 1));
-}
-```
-:::
-
-???
-
-Notou algo de errado com essa função?
-
-Ela não leva em conta um dos fatores que foi mencionado no começo da aula: o que acontece se o limite de peso for ultrapassado por um objeto.
-
-??? Questão 7
-
-Refaça a Questão 6, levando em conta o caso em que um objeto ultrapassa o limite de peso.
 
 ::: Gabarito
-``` c
-int Mochila(int L, int p[], int val[], int n)
-{
-    // Condição Inicial
-    if (n == 0 || L == 0)
-        return 0;
+Os itens 1, 2 e 3, chegando a um peso de 6kg com valor R$ 36,00
 
-    // Se o peso do n-ésimo item for maior do que
-    // a capacdade L da mochila, então esse item
-    // não pode ser incluído na solução otimizada
-    if (p[n - 1] > L)
-        return Mochila(L, p, val, n - 1);
- 
-    // Devolve o maior valor dentre dois casos:
-    // (1) incluindo o n-ésimo item na mochila
-    // (2) não incluindo o n-ésimo item na mochila
-    return maior_valor(
-        val[n - 1] + Mochila(L - p[n - 1], p, val, n - 1),
-                                Mochila(L, p, val, n - 1));
-}
-```
-:::
-
-???
-
-Melhorou, mas o objetivo dessa aula é resolver o problema da mochila usando de **Programação Dinâmica**, e não usando de recursão simples, que apesar de não gastar muita memória, tem um tempo de execução muito alto, sendo sua complexidade O(2**n), devido a repetição desnecessária.
-
-Com o uso de programação dinâmica para resolver o problema, essa repetição pode ser evitada criando um array temporário **temp**.
-
-??? Questão 8
-
-Usando tudo o que você aprendeu nessa aula, desenvolva o algoritmo de Programação Dinâmica usado na resolução do problema da mochila. 
-
-::: Gabarito
-``` c
-int Mochila(int L, int p[], int val[], int n)
-{
-    int i, w;
-    int K[n + 1][L + 1];
- 
-    // Construindo array K[][] de baixo para cima
-    for (i = 0; i <= n; i++)
-    {
-        for (w = 0; w <= L; w++)
-        {
-            if (i == 0 || w == 0)
-                K[i][w] = 0;
-            else if (p[i - 1] <= w)
-                K[i][w] = max(val[i - 1]
-                          + K[i - 1][w - p[i - 1]], K[i - 1][w]);
-            else
-                K[i][w] = K[i - 1][w];
-        }
-    }
- 
-    return K[n][L];
-}
-```
-:::
-
-???
-
-??? Questão 9
-
-Agora que temos o nosso algoritmo, determine a sua complexidade.
-
-::: Gabarito
-A complexidade temporal e de uso de memória auxiliar do nosso algoritmo é O(n) em ambos os casos, o que significa que se uma empresa tiver como prioridade maior a velocidade ou o quanto de memória é gasta, ele poderia acabar não sendo escolhido. 
-
-Mas por ser um algoritmo estável, se uma empresa quiser dados confiáveis acima de tempo ou uso de memória, o que geralmente é o que ocorre em casos envolvendo objetos de valor muito alto, esse é o melhor algoritmo para esse serviço.
+![](G2.png)
 :::
 
 ???
