@@ -21,6 +21,8 @@ Considere uma mochila com limite de peso de 3kg com os seguintes itens:
 * Item 2: 2 kg com valor de R$ 20,00
 * Item 3: 3 kg com valor de R$ 30,00
 
+![](Q1_novo.png)
+
 Intuitivamente, quais itens devem entrar na mochila para maximizar o seu valor?
 
 !!! Aviso
@@ -29,6 +31,8 @@ Cada item só pode ser colocado UMA vez na lista. Ou seja, se o limite for 2 kg,
 
 ::: Gabarito
 Os itens 1 e 2, chegando a um peso máximo de 3kg com valor R$ 35,00
+
+![](G1_novo.png)
 :::
 
 ???
