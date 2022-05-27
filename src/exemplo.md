@@ -21,6 +21,8 @@ Considere uma mochila com limite de peso de 4kg com os seguintes itens:
 * Item 2: 2 kg com valor de R$ 20,00
 * Item 3: 3 kg com valor de R$ 30,00
 
+![](Q1.png)
+
 Intuitivamente, quais itens devem entrar na mochila para maximizar o seu valor?
 
 !!! Aviso
@@ -29,11 +31,39 @@ Cada item só pode ser colocado UMA vez na lista. Ou seja, se o limite for 2 kg,
 
 ::: Gabarito
 Os itens 1 e 3, chegando a um peso máximo de 4kg com valor R$ 40,00
+
+![](G1.png)
 :::
 
 ???
 
-O problema parece simples para poucos itens com um limite de peso baixo. A partir do momento em que a lista de itens aumenta muito, e o limite de peso é elevado, fica mais difícil enxergar a solução otimizada. Com isso, fica necessário implementar a ajuda de um algoritmo para fazer essa otimização.
+No entanto, apesar de que na questão anterior a solução ótima inclui o objeto mais valioso individualmente, e o peso máximo da mochila é atingido, esse nem sempre é o caso. Para ver se você realmente entendeu, resolva o próximo exercício.
+
+??? Questão 2
+
+Considere uma mochila com limite de peso de 7kg com os seguintes itens:
+* Item 1: 1 kg com valor de R$ 9,00
+* Item 2: 2 kg com valor de R$ 12,00
+* Item 3: 3 kg com valor de R$ 15,00
+* Item 4: 5 kg com valor de R$ 20,00
+
+![](Q2.png)
+
+Intuitivamente, quais itens devem entrar na mochila para maximizar o seu valor?
+
+!!! Aviso
+Cada item só pode ser colocado UMA vez na lista. Ou seja, se o limite for 2 kg, NÃO pode colocar o Item 1 DUAS vezes. Também não pode colocar um item parcialmente caso adicionar o item todo ultrapasse o limite. Ou o objeto cabe na mochila, ou não cabe.
+!!!
+
+::: Gabarito
+Os itens 1, 2 e 3, chegando a um peso de 6kg com valor R$ 36,00
+
+![](G2.png)
+:::
+
+???
+
+Os problemas parecem simples para poucos itens com um limite de peso baixo. A partir do momento em que a lista de itens aumenta muito, e o limite de peso é elevado, fica mais difícil enxergar a solução otimizada. Com isso, fica necessário implementar a ajuda de um algoritmo para fazer essa otimização.
 
 Opções de Algoritmo
 ---------
