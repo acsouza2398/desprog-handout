@@ -164,10 +164,10 @@ int Mochila(int L, int p[], int val[], int n)
 
 Determine a complexidade da função recursiva.
 
-::: Gabarito (Texto pls, Tiago)
-A complexidade temporal e de uso de memória auxiliar do nosso algoritmo é O(n) em ambos os casos, o que significa que se uma empresa tiver como prioridade maior a velocidade ou o quanto de memória é gasta, ele poderia acabar não sendo escolhido. 
+::: Gabarito
+A complexidade temporal do nosso algoritmo de recursão é O(2^n), devido ao fato de ser um algoritmo bem simples onde muitas repetições de operações desnecessárias são realizadas. Com esse desempenho bem ruim no que se refere à velocidade de execuçao do processo, se uma empresa tiver como prioridade maior a velocidade, ele não seria escolhido caso hovesse outras opções com. 
 
-Mas por ser um algoritmo estável, se uma empresa quiser dados confiáveis acima de tempo ou uso de memória, o que geralmente é o que ocorre em casos envolvendo objetos de valor muito alto, esse é o melhor algoritmo para esse serviço.
+Apesar disso, como não há uso de estruturas temporárias, como listas por exemplo, que armazenam informação durante o processo, não há necessidade de memória extra, sendo a complexidade do uso de memória adicional da recursão simples realizada O(1).
 :::
 
 ???
