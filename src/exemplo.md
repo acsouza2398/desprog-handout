@@ -86,7 +86,17 @@ Bom...Não nos apressemos. Primeiro, vamos ver se você entendeu a recursão do 
 
 ??? Questão 3
 
-Desenvolva o caso base da recursão para resolver o problema da mochila.
+Vamos pensar no caso base da recursão. O que acontece quando o limite da mochila é 0 ou se não há itens para colocar?
+
+::: Gabarito
+Como não tem espaço na mochila, o valor final fica 0. O mesmo é verdadeiro se não há itens para colocar na mochila mesmo com espaço.
+:::
+
+???
+
+??? Questão 3
+
+Com a intuição acima, desenvolva o caso base da recursão para resolver o problema da mochila.
 
 ::: Gabarito
 ``` c
@@ -102,9 +112,36 @@ int Mochila(int L, int p[], int val[], int n)
 
 ???
 
+Com o caso base feito, vamos pensar um pouco em como itens entram ou saem da mochila. Para isso, vamos retomar o exemplo inicial da aula:
+* Item 1: 1 kg com valor de R$ 15,00
+* Item 2: 2 kg com valor de R$ 20,00
+* Item 3: 3 kg com valor de R$ 30,00
+
+??? Questão 3
+
+Na situação em que o limite de peso é 3kg, escreva um pseudocódigo que mostre como o algoritmo deveria escolher o que entra na mochila.
+
+!!! Aviso
+Não coloque a resposta final, mas sim como o algoritmo iria selecionar e comparar os itens.
+!!!
+
+::: Gabarito
+``` c
+se(item 3 > item 1 + item 2){
+    colocar item 3 na mochila
+} caso contrario{
+    colocar item 1 + 2 na mochila
+}
+```
+É interessante notar que uma vez que escolhemos o item 1 para entrar na mochila, o limite da mochila diminui pelo peso do item 1 (3 - 1 = 2). Com isso, temos uma "nova" mochila para otimizar, mas dessa vez é uma mochila com limite de 2kg. Como nesse caso o único item que pode entrar na mochila é o item 2, pois o item 3 ultrapassa o limite da mochila, o valor final da nossa mochila original fica a soma do item 1 com o 2 que é R$ 35,00. Essa comparação com um valor de mochila menor é o porquê do uso da recursão.
+:::
+
+???
+
 ??? Questão 4
 
-Feito a condição inicial, complete a função com a chamada recursiva.
+Levando em conta a intuição acima e o exemplo original, complete a função com a chamada recursiva. <br> <br>
+Considere que há uma função auxiliar chamada maior_valor() que retorna o maior valor entre duas entradas.
 
 ::: Gabarito
 ``` c
