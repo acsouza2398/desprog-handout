@@ -84,10 +84,20 @@ Com a chamada da função pronta, os próximos passos são: definir a condição
 
 Bom...Não nos apressemos. Primeiro, vamos ver se você entendeu a recursão do nosso algoritmo.
 
-
 ??? Questão 3
 
-Desenvolva o caso base da recursão para resolver o problema da mochila.
+Vamos pensar no caso base da recursão. O que acontece quando o limite da mochila é 0 ou se não há itens para colocar?
+
+::: Gabarito
+Como não tem espaço na mochila, o valor final fica 0. O mesmo é verdadeiro se não há itens para colocar na mochila mesmo com espaço.
+:::
+
+???
+
+??? Questão 4
+
+Com a intuição acima, desenvolva o caso base da recursão para resolver o problema da mochila.
+
 !!! Dica
 Desenvolva a base lembrando que o problema acaba quando não há mais itens para colocar dentro da mochila
 !!!
@@ -106,9 +116,36 @@ int Mochila(int L, int p[], int val[], int n)
 
 ???
 
-??? Questão 4
+Com o caso base feito, vamos pensar um pouco em como itens entram ou saem da mochila. Para isso, vamos retomar o exemplo inicial da aula:
+* Item 1: 1 kg com valor de R$ 15,00
+* Item 2: 2 kg com valor de R$ 20,00
+* Item 3: 3 kg com valor de R$ 30,00
 
-Feito a condição inicial, complete a função com a chamada recursiva.
+??? Questão 5
+
+Na situação em que o limite de peso é 3kg, escreva um pseudocódigo que mostre como o algoritmo deveria escolher o que entra na mochila.
+
+!!! Aviso
+Não coloque a resposta final, mas sim como o algoritmo iria selecionar e comparar os itens.
+!!!
+
+::: Gabarito
+``` c
+se(item 3 > item 1 + item 2){
+    colocar item 3 na mochila
+} caso contrario{
+    colocar item 1 + 2 na mochila
+}
+```
+É interessante notar que uma vez que escolhemos o item 1 para entrar na mochila, o limite da mochila diminui pelo peso do item 1 (3 - 1 = 2). Com isso, temos uma "nova" mochila para otimizar, mas dessa vez é uma mochila com limite de 2kg. Como nesse caso o único item que pode entrar na mochila é o item 2, pois o item 3 ultrapassa o limite da mochila, o valor final da nossa mochila original fica a soma do item 1 com o 2 que é R$ 35,00. Essa comparação com um valor de mochila menor é o porquê do uso da recursão.
+:::
+
+???
+
+??? Questão 6
+
+Levando em conta a intuição acima e o exemplo original, complete a função com a chamada recursiva. <br> <br>
+Considere que há uma função auxiliar chamada maior_valor() que retorna o maior valor entre duas entradas.
 
 ::: Gabarito
 ``` c
@@ -134,7 +171,7 @@ Notou algo de errado com essa função?
 
 Ela não leva em conta um dos fatores que foi mencionado no começo da aula: o que acontece se o limite de peso for ultrapassado por um objeto.
 
-??? Questão 5
+??? Questão 7
 
 Refaça a Questão 4, levando em conta o caso em que um objeto ultrapassa o limite de peso.
 
@@ -164,11 +201,22 @@ int Mochila(int L, int p[], int val[], int n)
 
 ???
 
-??? Questão 6
+??? Questão 8
 
-Determine a complexidade da função recursiva.
+Desenvolva a árvore de complexidade para o código de exemplo, especificando o quanto n variou apenas nos níveis da três primeiras recursões, e a partir daí, determine a complexidade da função recursiva.
 
 ::: Gabarito
+
+``` c
+         /
+        | 1                    se n == 0 ou L == 0;
+f(n) = <
+        | 2Mochila(n-1) + 1    se n > 0 e L > 0.
+         \
+```
+
+![](arvore.png)
+
 A complexidade temporal do nosso algoritmo de recursão é O(2^n), devido ao fato de ser um algoritmo bem simples onde muitas repetições de operações desnecessárias são realizadas. Com esse desempenho bem ruim no que se refere à velocidade de execuçao do processo, se uma empresa tiver como prioridade maior a velocidade, ele não seria escolhido caso hovesse outras opções com. 
 
 Apesar disso, como não há uso de estruturas temporárias, como listas por exemplo, que armazenam informação durante o processo, não há necessidade de memória extra, sendo a complexidade do uso de memória adicional da recursão simples realizada O(1).
@@ -184,7 +232,7 @@ Com o uso de programação dinâmica para resolver o problema, a repetição exc
 
 Lembrando como funciona a programação dinâmica, o algoritmo consulta o array temporário para tomar as decisões de incluir um item ou não e preenche o array até chegar na resposta final do problema. Como o array segura todos os resultados das iterações passadas, não há mais necessidade da recursão, apenas a consulta e comparação com o array.
 
-??? Questão 7
+??? Questão 9
 
 Com essas informações, desenvolva o algoritmo de Programação Dinâmica usado na resolução do problema da mochila. 
 
@@ -217,11 +265,22 @@ int Mochila(int L, int p[], int val[], int n)
 
 ???
 
-??? Questão 8
+??? Questão 10
 
-Agora que temos o nosso algoritmo, determine a sua complexidade.
+Agora que temos o nosso algoritmo, desenvolva a árvore de complexidade para a nova versão do código, e use a mesma para determinar a sua complexidade.
 
 ::: Gabarito
+
+``` c
+         /
+        | 1                   se i == 0 ou w == 0;
+f(n) = <
+        | Mochila(n-1) + 1    se i > 0  e w > 0.
+         \
+```
+
+![](arvore2.png)
+
 A complexidade temporal e de uso de memória auxiliar do nosso algoritmo é O(n) em ambos os casos, o que significa que se uma empresa tiver como prioridade maior a velocidade ou o quanto de memória é gasta, ele poderia acabar não sendo escolhido. 
 
 Mas por ser um algoritmo estável, se uma empresa quiser dados confiáveis acima de tempo ou uso de memória, o que geralmente é o que ocorre em casos envolvendo objetos de valor muito alto, esse é o melhor algoritmo para esse serviço.
@@ -241,7 +300,7 @@ Como o algoritmo é recursivo, isso implica calcular subproblemas derivados do p
 
 As células dessa matriz são preenchidas linhas por coluna com o valor máximo da mochila dado seu limite de peso e itens considerados.
 
-??? Questão 9
+??? Questão 11
 
 Preencha a primeira linha da tabela. Ou seja, considerando apenas o item 1, qual é o valor da mochila para cada limite de peso?
 
@@ -262,7 +321,7 @@ A partir da segunda coluna, onde o limite de peso é 1 kg, é possível incluir 
 O preenchimento da próxima linha é onde a recursão começa a importar. Até a segunda coluna, o preenchimento é igual a linha de cima, visto que não é possível incluir o item 2 quando o limite de peso é inferior ao seu peso. Na terceira coluna, há uma decisão a ser tomada: incluir o item 1 ou 2.<br><br>
 Volte no algorítmo de recursão para responder essa próxima questão. Não use sua intuição para decidir qual será o proximo valor pois você não conseguirá fazer a mesma coisa com listas maiores e problemas mais complexos.
 
-??? Questão 10
+??? Questão 12
 
 Preencha a segunda linha da tabela até a terceira coluna. Qual deve ser o item a ser incluido na terceira coluna? Por quê?
 
@@ -286,7 +345,7 @@ Nas últimas duas colunas, o valor máximo é a somatória dos valores dos itens
 
 Para a terceira linha da tabela, assim como para o item 2, as primeiras 3 colunas são identicas a linha de cima, pois não é possível incluir o item 3 ainda.
 
-??? Questão 11
+??? Questão 13
 
 Preencha a terceira linha da tabela até a quarta coluna. Qual deve ser o(s) item(ns) a ser(em) incluido(s) na quarta coluna? Por quê?
 
@@ -334,7 +393,7 @@ O valor final da mochila é R$ 45,00 com peso de 4 kg.
 
 Agora que você já entendeu a como o problema funciona, resolva o problema a seguir:
 
-??? Questão 12
+??? Questão 14
 
 Considere uma mochila com limite de peso de 7 kg com os seguintes itens:
 * Item 1: 1 kg com valor de R$ 9,00
