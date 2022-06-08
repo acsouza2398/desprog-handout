@@ -199,9 +199,20 @@ int Mochila(int L, int p[], int val[], int n)
 
 ??? Questão 6
 
-Determine a complexidade da função recursiva.
+Desenvolva a árvore de complexidade para o código de exemplo, especificando o quanto n variou apenas nos níveis da três primeiras recursões, e a partir daí, determine a complexidade da função recursiva.
 
 ::: Gabarito
+
+``` c
+         /
+        | 1                    se n == 0 ou L == 0;
+f(n) = <
+        | 2Mochila(n-1) + 1    se n > 0 e L > 0.
+         \
+```
+
+![](arvore.png)
+
 A complexidade temporal do nosso algoritmo de recursão é O(2^n), devido ao fato de ser um algoritmo bem simples onde muitas repetições de operações desnecessárias são realizadas. Com esse desempenho bem ruim no que se refere à velocidade de execuçao do processo, se uma empresa tiver como prioridade maior a velocidade, ele não seria escolhido caso hovesse outras opções com. 
 
 Apesar disso, como não há uso de estruturas temporárias, como listas por exemplo, que armazenam informação durante o processo, não há necessidade de memória extra, sendo a complexidade do uso de memória adicional da recursão simples realizada O(1).
@@ -252,9 +263,20 @@ int Mochila(int L, int p[], int val[], int n)
 
 ??? Questão 8
 
-Agora que temos o nosso algoritmo, determine a sua complexidade.
+Agora que temos o nosso algoritmo, desenvolva a árvore de complexidade para a nova versão do código, e use a mesma para determinar a sua complexidade.
 
 ::: Gabarito
+
+``` c
+         /
+        | 1                   se i == 0 ou w == 0;
+f(n) = <
+        | Mochila(n-1) + 1    se i > 0  e w > 0.
+         \
+```
+
+![](arvore2.png)
+
 A complexidade temporal e de uso de memória auxiliar do nosso algoritmo é O(n) em ambos os casos, o que significa que se uma empresa tiver como prioridade maior a velocidade ou o quanto de memória é gasta, ele poderia acabar não sendo escolhido. 
 
 Mas por ser um algoritmo estável, se uma empresa quiser dados confiáveis acima de tempo ou uso de memória, o que geralmente é o que ocorre em casos envolvendo objetos de valor muito alto, esse é o melhor algoritmo para esse serviço.
