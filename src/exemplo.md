@@ -1,7 +1,7 @@
 Problema da Mochila 1/0
 ======
 
-O que é?
+O que é? 
 ---------
 
 Nessa aula, será abordado dentro do tema de Divisão, Conquista e Programação Dinâmica, o uso do algoritmo dinâmico para resolver o problema da mochila. O problema da mochila, de forma sucinta, é um problema de otimização de espaço para o maior retorno possível.
@@ -26,7 +26,7 @@ Considere uma mochila com limite de peso de 3kg com os seguintes itens:
 Intuitivamente, quais itens devem entrar na mochila para maximizar o seu valor?
 
 !!! Aviso
-Cada item só pode ser colocado UMA vez na lista. Ou seja, se o limite for 2 kg, NÃO pode colocar o Item 1 DUAS vezes. Também não pode colocar um item parcialmente caso adicionar o item todo ultrapasse o limite. Ou o objeto cabe na mochila, ou não cabe.
+Importante ressaltar que cada item só pode ser colocado UMA vez na mochila ou seja, caso a mochila tenha 2kg, o item 1 so pode ser contabilizado uma vez, totalizando um valor de R$ 15,00. Além disso, não pode adicionar um item de forma parcial ou um item que ultrapasse o limite de peso total.
 !!!
 
 ::: Gabarito
@@ -37,7 +37,7 @@ Os itens 1 e 2, chegando a um peso máximo de 3kg com valor R$ 35,00
 
 ???
 
-O problema parece simples para poucos itens com um limite de peso baixo. A partir do momento em que a lista de itens aumenta muito, e o limite de peso é elevado, fica mais difícil enxergar a solução otimizada. Com isso, fica necessário implementar a ajuda de um algoritmo para fazer essa otimização.
+O problema parece simples para poucos itens com um limite de peso baixo. A partir do momento em que a lista de itens aumenta, e o limite de peso é elevado, fica mais difícil enxergar a solução otimizada. Com isso, fica necessário implementar a ajuda de um algoritmo para fazer essa otimização.
 
 Opções de Algoritmo
 ---------
@@ -80,13 +80,17 @@ Para fins de simplificação, considera-se que a posição dos itens na lista de
 
 ???
 
-Com a chamada da função pronta, os próximos passos são: definir a condição inicial, e então usar de recursão para checar sempre qual é o caso de maior valor: **com** ou **sem** o objeto em questão.
+Com a chamada da função pronta, os próximos passos são: definir a condição inicial, e então usar recursão para checar qual é o caso de maior valor: **com** ou **sem** o objeto em questão.
 
 Bom...Não nos apressemos. Primeiro, vamos ver se você entendeu a recursão do nosso algoritmo.
+
 
 ??? Questão 3
 
 Desenvolva o caso base da recursão para resolver o problema da mochila.
+!!! Dica
+Desenvolva a base lembrando que o problema acaba quando não há mais itens para colocar dentro da mochila
+!!!
 
 ::: Gabarito
 ``` c
@@ -248,14 +252,15 @@ A partir da segunda coluna, onde o limite de peso é 1 kg, é possível incluir 
 
 |                             | 0 kg     | 1 kg     | 2 kg     | 3 kg     | 
 |-----------------------------|----------|----------|----------|----------|
-| **Item 1 (1 kg, R$ 15,00)** | R$ 0,00  | R$ 15,00 | R$ 15,00 | R$ 15,00 | 
+| **Item 1 (1 kg, R$ 15,00)** | R$ 0,00  | R$ 15,00<br> <span style="color:red">(**item 1**) </span> | R$ 15,00 <br> <span style="color:red">(**item 1**) </span>| R$ 15,00 <br> <span style="color:red">(**item 1**) </span>| 
 | **Item 2 (2 kg, R$ 20,00)** |          |          |          |          |         
 | **Item 3 (3 kg, R$ 30,00)** |          |          |          |          |          
 :::
 
 ???
 
-O preenchimento da próxima linha é onde a recursão começa a importar. Até a segunda coluna, o preenchimento é igual a linha de cima, visto que não é possível incluir o item 2 quando o limite de peso é inferior ao seu peso. Na terceira coluna, há uma decisão a ser tomada: incluir o item 1 ou 2.
+O preenchimento da próxima linha é onde a recursão começa a importar. Até a segunda coluna, o preenchimento é igual a linha de cima, visto que não é possível incluir o item 2 quando o limite de peso é inferior ao seu peso. Na terceira coluna, há uma decisão a ser tomada: incluir o item 1 ou 2.<br><br>
+Volte no algorítmo de recursão para responder essa próxima questão. Não use sua intuição para decidir qual será o proximo valor pois você não conseguirá fazer a mesma coisa com listas maiores e problemas mais complexos.
 
 ??? Questão 10
 
@@ -263,14 +268,14 @@ Preencha a segunda linha da tabela até a terceira coluna. Qual deve ser o item 
 
 ::: Gabarito
 
-O item a ser incluido é o Item 2, pois o valor do item 2 é maior do que do item 1. <br>
+O item a ser incluido é o Item 2.<br>
 <br>
-Para tomar essa decisão, você acabou levando em consideração qual era o maior valor entre o item previamente incluido, o item 1, e o item a ser incluido, o item 2, para esse limite de peso.
+Para tomar essa decisão, entre qual item adicionar, você teve que considerar duas possibilidades para fazer com os itens a serem adicionados e o peso da mochila; ou pegar o item 2, ou não pegar. Se escolhesse em não pegar, você deve obter o melhor valor que você conseguiria pegando o primeiro item, que nesse caso seria 15 reais. <br><br> Agora, se a escolha fosse pegar o item dois, o valor final seria o valor do item 2 MAIS o valor que você conseguiria com o primeiro item na coluna de 0kg. *2kg da mochila - 2kg do item dois*
 
 |                             | 0 kg     | 1 kg     | 2 kg     | 3 kg     | 
 |-----------------------------|----------|----------|----------|----------|
-| **Item 1 (1 kg, R$ 15,00)** | R$ 0,00  | R$ 15,00 | R$ 15,00 | R$ 15,00 | 
-| **Item 2 (2 kg, R$ 20,00)** | R$ 0,00  | R$ 15,00 | R$ 20,00 |          |         
+| **Item 1 (1 kg, R$ 15,00)** | R$ 0,00  | R$ 15,00<br> <span style="color:red">(**item 1**) </span> | R$ 15,00 <br> <span style="color:red">(**item 1**) </span>| R$ 15,00<br> <span style="color:red">(**item 1**) </span>  | 
+| **Item 2 (2 kg, R$ 20,00)** | R$ 0,00  | R$ 15,00 <br> <span style="color:red">(**item 1**) </span>| R$ 20,00<br> <span style="color:red">(**item 2**) </span>  |          |                                             
 | **Item 3 (3 kg, R$ 30,00)** |          |          |          |          |          
 
 :::
@@ -294,9 +299,9 @@ Para tomar essa decisão, você acabou levando em consideração qual era o maio
 
 |                             | 0 kg     | 1 kg     | 2 kg     | 3 kg     | 
 |-----------------------------|----------|----------|----------|----------|
-| **Item 1 (1 kg, R$ 15,00)** | R$ 0,00  | R$ 15,00 | R$ 15,00 | R$ 15,00 | 
-| **Item 2 (2 kg, R$ 20,00)** | R$ 0,00  | R$ 15,00 | R$ 20,00 | R$ 35,00 | 
-| **Item 3 (3 kg, R$ 30,00)** | R$ 0,00  | R$ 15,00 | R$ 20,00 | R$ 35,00 |          
+| **Item 1 (1 kg, R$ 15,00)** | R$ 0,00  | R$ 15,00<br> <span style="color:red">(**item 1**) </span>  | R$ 15,00<br> <span style="color:red">(**item 1**) </span>  | R$ 15,00<br> <span style="color:red">(**item 1**) </span>  | 
+| **Item 2 (2 kg, R$ 20,00)** | R$ 0,00  | R$ 15,00<br> <span style="color:red">(**item 1**) </span>  | R$ 20,00 <br> <span style="color:red">(**item 2**) </span> | R$ 35,00 <br> <span style="color:red">(**item 1 + item 2**) </span>. |
+| **Item 3 (3 kg, R$ 30,00)** | R$ 0,00  | R$ 15,00<br> <span style="color:red">(**item 1**) </span>  | R$ 20,00 <br> <span style="color:red">(**item 2**) </span> | R$ 35,00 <br> <span style="color:red">(**item 1 + item 2**) </span>. |          
 
 !!! Aviso
 Não passe para frente antes de entender como funciona a recursão na tabela.
