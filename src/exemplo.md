@@ -42,8 +42,7 @@ O problema parece simples para poucos itens com um limite de peso baixo. A parti
 Opções de Algoritmo
 ---------
 
-O problema da mochila é um problema de otimização, com aplicação real para empresas, e logo precisa de uma visão realista na hora de escolher qual algoritmo se deve usar para resolvê-lo. Embora haja algoritmos com melhor desempenho no que se refere à velocidade com que o programa roda, o algoritmo dinâmico é o mais confiável, pois ele sempre retorna a melhor resposta.
-E como a confiabilidade dos resultados obtidos são muito valorizados por gestores, esse algoritmo é o melhor, principalmente em casos pequenos.
+O problema da mochila é um problema de otimização, com aplicação real para empresas, e logo precisa de uma visão realista na hora de escolher qual algoritmo se deve usar para resolvê-lo. Embora recursão simples por si só consiga resolver corretamente o problema da mochila, devido à necessidade de ficar repetindo operações ela não é a mais viável conforme a quantidade de itens aumenta, pois ela precisa de muito mais tempo para chegar ao resultado, motivo esse de escolhermos programação dinâmica, que diminui bastante o grau de complexidade do problema.
 
 Agora que sabemos o POR QUÊ de usarmos esse algoritmo, está na hora de começarmos a entender COMO usamos esse algoritmo. Para isso, vamos montar a função. 
 
